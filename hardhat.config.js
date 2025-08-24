@@ -15,15 +15,15 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      very: process.env.EXPLORER_API_KEY || "blockscout",         // Blockscout면 빈 문자열도 OK
+      very: process.env.EXPLORER_API_KEY || "blockscout",
     },
     customChains: [
       {
         network: "very",
         chainId: 4613,
         urls: {
-          apiURL: "https://www.veryscan.io/api", // ✅ 실제 API 엔드포인트
-          browserURL: "https://veryscan.io/", // ✅ 브라우저 URL
+          apiURL: "https://www.veryscan.io/api",
+          browserURL: "https://veryscan.io/",
         },
       },
     ],

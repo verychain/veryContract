@@ -39,12 +39,8 @@ contract VeryPoolCore is Initializable, OwnableUpgradeable, PausableUpgradeable,
         __Pausable_init();
         __ReentrancyGuard_init();
 
-        require(veryPoolTreasury != address(0), "Invalid treasury address");
+        require(_veryPoolTreasury != address(0), "Invalid treasury address");
         veryPoolTreasury = _veryPoolTreasury;
-    }
-
-    constructor() {
-        _disableInitializers();
     }
 
     /* ---------------------- Emergency Pause ---------------------- */

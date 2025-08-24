@@ -13,10 +13,6 @@ import { ReentrancyGuardUpgradeable } from "@openzeppelin/contracts-upgradeable/
 contract VeryPoolTreasury is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
     event ClaimedNative(address indexed to, uint256 amount);
 
-    constructor() {
-        _disableInitializers();
-    }
-
     function initialize(address initialOwner) public initializer {
         __Ownable_init(initialOwner);
         __ReentrancyGuard_init();

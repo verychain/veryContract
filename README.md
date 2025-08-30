@@ -1,7 +1,7 @@
 # VeryPool Contracts
 
 > **Upgradable escrow & treasury contracts for P2P trade settlement.**
-> 유저별 `tradeId` 단위의 에스크로 관리와 트레저리 출금 기능을 제공합니다.
+> Provides per-`tradeId` escrow management and treasury withdrawal features.
 
 ---
 
@@ -9,30 +9,30 @@
 
 ### `VeryPoolCore.sol`
 
-* **역할:** P2P 거래를 위한 에스크로 관리
-* **구조:** `user → tradeId → Trade`
-* **주요 기능**
+* **Role:** Escrow management for P2P trades
+* **Structure:** `user → tradeId → Trade`
+* **Key Features:**
 
   * `deposit(tradeId, tradeAmount)`:
-    유저가 네이티브 토큰(ETH 등)을 `tradeId`별로 에스크로 입금
+    User deposits native tokens (e.g., ETH) into escrow, managed by `tradeId`
   * `cancelTrade(user, tradeId)`:
-    관리자 취소 시 전액 환불 처리
+    Admin cancels the trade and refunds the full amount
   * `confirmTrade(user, tradeId, to)`:
-    거래 확정 시 수취자(`to`)에게 송금, 이후 동일 `to`만 허용
+    Admin confirms the trade, releases funds to the recipient (`to`), and locks to the same `to` thereafter
   * `pause / unpause`:
-    비상 정지 기능
-  * 조회 기능: `getTradeInfo`, `contractBalance`, `getVeryPoolTreasury` 등
+    Emergency stop mechanism
+  * Getter functions: `getTradeInfo`, `contractBalance`, `getVeryPoolTreasury`, etc.
 
 ### `VeryPoolTreasury.sol`
 
-* **역할:** 업그레이더블 트레저리 (네이티브 토큰만 보관)
-* **주요 기능**
+* **Role:** Upgradeable treasury (native token only)
+* **Key Features:**
 
   * `claimNative(to, amount)`:
-    오너 전용 출금
+    Owner-only withdrawal
   * `treasuryBalance()`:
-    트레저리 보유 잔액 조회
-  * 외부에서 네이티브 입금 허용 (`receive()`)
+    View treasury balance
+  * Native deposits supported (`receive()`)
 
 ---
 
@@ -42,7 +42,7 @@
 * OpenZeppelin Upgradeable Contracts
 
   * `OwnableUpgradeable`, `PausableUpgradeable`, `ReentrancyGuardUpgradeable`
-* Proxy Pattern: **Transparent Proxy (Hardhat Upgrades 호환)**
+* Proxy Pattern: **Transparent Proxy (Hardhat Upgrades compatible)**
 
 ---
 
@@ -63,9 +63,9 @@ npx hardhat run scripts/deploy.ts --network <network-name>
 
 ## 🔒 Security
 
-* **Checks-Effects-Interactions** 패턴 적용
-* `nonReentrant`로 재진입 방지
-* `pause()`를 통한 비상 정지 가능
+* Implements **Checks-Effects-Interactions** pattern
+* `nonReentrant` guard against re-entrancy
+* Emergency stop via `pause()`
 
 ---
 
@@ -73,11 +73,18 @@ npx hardhat run scripts/deploy.ts --network <network-name>
 
 MIT
 
-## 📂 Deploy report  
-Treasury Proxy: 0x93b0fb5B0c7B447924acbfC152971340ea5a1C7A   
-Treasury Impl : 0x1cA61E66c0c742D1C44a601cda0Efa7fD53dc2Ab   
-Treasury Admin: 0xbfF64fc7C58bf098b61c5D371Cfbe84618d4E8fe   
-   
-Core Proxy: 0x4C59643cDc3974763aD02D4b3dc0Fa58E5B971FD   
-Core Impl : 0x6D862be31b1A2C601087dAeE76b2757eDC6AC3c6   
-Core Admin: 0xa0dbDF4c9F1e6CfE966822BF7E095983Df37fE3e   
+---
+
+## 📂 Deploy Report
+
+**Treasury**
+
+* Proxy: `0x93b0fb5B0c7B447924acbfC152971340ea5a1C7A`
+* Impl : `0x1cA61E66c0c742D1C44a601cda0Efa7fD53dc2Ab`
+* Admin: `0xbfF64fc7C58bf098b61c5D371Cfbe84618d4E8fe`
+
+**Core**
+
+* Proxy: `0x4C59643cDc3974763aD02D4b3dc0Fa58E5B971FD`
+* Impl : `0x6D862be31b1A2C601087dAeE76b2757eDC6AC3c6`
+* Admin: `0xa0dbDF4c9F1e6CfE966822BF7E095983Df37fE3e`

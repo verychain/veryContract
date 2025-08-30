@@ -1,4 +1,3 @@
-
 # VeryPool Contracts
 
 > **Upgradable escrow & treasury contracts for P2P trade settlement.**
